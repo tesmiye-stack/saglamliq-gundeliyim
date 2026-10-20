@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0756a5">
+<title>Sağlamlıq Gündəliyim</title>
+<style>
+:root{--navy:#092a68;--blue:#0877cb;--pale:#eef6ff;--red:#ef594d;--ink:#172b4d;--muted:#5e6f88;--line:#dce7f4}
+*{box-sizing:border-box}body{margin:0;background:#f4f8fd;color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#082b70,#087ed0);color:white;padding:24px 18px 30px;border-radius:0 0 26px 26px}
+.wrap{max-width:900px;margin:auto;padding:0 16px} .brand{font-weight:850;letter-spacing:.8px;font-size:20px}.brand small{display:block;font-size:11px;letter-spacing:1.5px;font-weight:600;opacity:.85}
+h1{font-size:clamp(27px,5vw,38px);line-height:1.12;margin:24px 0 12px;max-width:600px}header p{max-width:600px;margin:0;color:#e7f3ff}
+.notice{background:#fff8e9;border:1px solid #f0dfb6;color:#624d19;padding:12px 14px;border-radius:12px;margin:18px 0;font-size:13px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}nav button,.btn{border:0;border-radius:11px;padding:11px 14px;font-weight:700;background:var(--blue);color:white;cursor:pointer}nav button{background:white;color:var(--navy);border:1px solid var(--line)}nav button.active{background:var(--navy);color:white}
+main{padding:4px 0 34px}.panel{display:none}.panel.active{display:block}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:18px;margin:12px 0;box-shadow:0 5px 18px #173d6809}
+h2{font-size:22px;margin:0 0 12px;color:var(--navy)}h3{font-size:16px;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+label{display:block;font-size:13px;font-weight:700;color:#465a76;margin:10px 0 5px}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cbd9e9;border-radius:10px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:80px;resize:vertical}.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.secondary{background:#edf4fc;color:var(--navy)}.danger{background:#fff0ee;color:#a42d25}.muted{color:var(--muted);font-size:13px}.metric{font-size:28px;font-weight:800;color:var(--navy)}.entry{border-top:1px solid var(--line);padding:12px 0}.entry:first-child{border-top:0}.entry strong{display:block}.pill{display:inline-block;background:#e8f5ee;color:#17613b;border-radius:30px;padding:3px 9px;font-size:12px;font-weight:700}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#102d5b;color:white;padding:10px 16px;border-radius:12px;display:none;max-width:90vw}
+@media print{header,nav,.no-print,footer,.notice{display:none!important}body{background:white}.wrap{max-width:none}.panel{display:none!important}#cardview{display:block!important}.card{box-shadow:none;border:0}.print-card{border:2px solid #0b5ca8;border-radius:18px;padding:28px;max-width:700px;margin:0 auto} }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="brand">SAĞLAMLIQ GÜNDƏLİYİM <small>ŞƏXSİ İZLƏMƏ ALƏTİ</small></div>
+<h1>Müalicənizi izləyin. Sağlamlığınıza nəzarət edin.</h1>
+<p>Dərman qəbulunu xatırlayın, arterial təzyiq və qlükoza göstəricilərinizi qeyd edin, gündəlik qeydlərinizi bir yerdə saxlayın.</p>
+</div></header>
+<div class="wrap">
+<div class="notice"><strong>Məxfilik:</strong> Bu ilkin prototip məlumatları yalnız bu cihazın brauzerində saxlayır. Brauzer məlumatları silinərsə, qeydlər itə bilər. Məlumatlar serverə göndərilmir. Paylaşılan cihazda şəxsi məlumat daxil etməyin.</div>
+<nav class="no-print" aria-label="Bölmələr">
+<button class="active" data-tab="home">Ümumi baxış</button><button data-tab="meds">Dərman xatırlatmaları</button><button data-tab="bp">Təzyiq</button><button data-tab="glucose">Qlükoza</button><button data-tab="journal">Gündəlik</button><button data-tab="cardview">QR kart</button>
+</nav>
+<main>
+<section class="panel active" id="home">
+<div class="grid">
+<div class="card"><h3>Dərman qeydləri</h3><div class="metric" id="medcount">0</div><div class="muted">Əlavə edilmiş xatırlatma</div></div>
+<div class="card"><h3>Təzyiq ölçmələri</h3><div class="metric" id="bpcount">0</div><div class="muted">Qeyd edilmiş ölçmə</div></div>
+<div class="card"><h3>Qlükoza ölçmələri</h3><div class="metric" id="glcount">0</div><div class="muted">Qeyd edilmiş ölçmə</div></div>
+</div>
+<div class="card"><h2>Başlamaq üçün</h2><p>1. Həkiminizin yazdığı müalicə təlimatını özünüz qeyd edin.</p><p>2. Təzyiq və qlükoza ölçmələrinizi tarixlə birlikdə daxil edin.</p><p>3. Qeydlərinizi həkim qəbulunda onunla müzakirə edin.</p><p class="muted">Bu prototip cihazınız bağlı olduqda avtomatik bildiriş göndərmir. Bildiriş və hesablar üçün ayrıca texniki qurulum lazımdır.</p></div>
+</section>
+<section class="panel" id="meds">
+<div class="card"><h2>Dərman qəbulu xatırlatmaları</h2><p class="muted">Yalnız həkiminizin təyin etdiyi qaydaları daxil edin. Bu alət doza və müalicə seçmir.</p>
+<form id="medform"><label for="medname">Preparatın adı</label><input id="medname" required maxlength="100" placeholder="Həkimin yazdığı ad">
+<div class="grid"><div><label for="medinstructions">Təyin edilmiş qəbul qaydası</label><input id="medinstructions" required maxlength="180" placeholder="Reseptdəki qayda"></div><div><label for="medtime">Xatırlatma vaxtı</label><input id="medtime" type="time" required></div></div>
+<div class="row"><button class="btn" type="submit">Xatırlatma əlavə et</button></div></form><div id="medlist"></div></div>
+</section>
+<section class="panel" id="bp">
+<div class="card"><h2>Arterial təzyiq gündəliyi</h2><form id="bpform"><div class="grid"><div><label for="sys">Yuxarı təzyiq (mmHg)</label><input id="sys" type="number" min="50" max="300" required></div><div><label for="dia">Aşağı təzyiq (mmHg)</label><input id="dia" type="number" min="30" max="200" required></div><div><label for="pulse">Nəbz (dəq.)</label><input id="pulse" type="number" min="20" max="250"></div></div><label for="bptime">Ölçmə tarixi və vaxtı</label><input id="bptime" type="datetime-local" required><label for="bpnote">Qeyd (istəyə görə)</label><input id="bpnote" maxlength="180" placeholder="Məsələn, özünüzü necə hiss edirdiniz"><div class="row"><button class="btn">Ölçməni saxla</button></div></form><div id="bplist"></div></div>
+</section>
+<section class="panel" id="glucose">
+<div class="card"><h2>Qlükoza gündəliyi</h2><form id="glform"><div class="grid"><div><label for="glvalue">Qlükoza göstəricisi</label><input id="glvalue" type="number" min="0" max="100" step="0.1" required></div><div><label for="glunit">Ölçü vahidi</label><select id="glunit"><option value="mmol/L">mmol/L</option><option value="mg/dL">mg/dL</option></select></div></div><label for="gltime">Ölçmə tarixi və vaxtı</label><input id="gltime" type="datetime-local" required><label for="glcontext">Ölçmə konteksti (istəyə görə)</label><select id="glcontext"><option>Qeyd edilməyib</option><option>Acqarına</option><option>Yeməkdən əvvəl</option><option>Yeməkdən sonra</option></select><div class="row"><button class="btn">Ölçməni saxla</button></div></form><div id="gllist"></div></div>
+</section>
+<section class="panel" id="journal">
+<div class="card"><h2>Sağlamlıq gündəliyi</h2><form id="journalform"><label for="jdate">Tarix</label><input id="jdate" type="date" required><label for="jtext">Qeydiniz</label><textarea id="jtext" maxlength="1000" required placeholder="Özünüzü necə hiss edirsiniz? Həkimə danışmaq istədiyiniz qeydlər..."></textarea><div class="row"><button class="btn">Qeydi saxla</button></div></form><div id="jlist"></div></div>
+</section>
+<section class="panel" id="cardview">
+<div class="print-card card"><div class="brand" style="color:#092a68">SAĞLAMLIQ GÜNDƏLİYİM <small>HƏKİM KABİNETİ ÜÇÜN NÜMUNƏ KART</small></div><h1 style="color:#092a68;font-size:34px">Müalicənizi izləyin. Sağlamlığınıza nəzarət edin.</h1><p>Dərman qəbulunuzu xatırlayın, arterial təzyiq və qlükoza göstəricilərinizi qeyd edin.</p><ul><li>Dərman qəbul qaydalarınızı izləyin</li><li>Təzyiq və qlükoza göstəricilərinizi qeyd edin</li><li>Sağlamlıq gündəliyinizi həkiminizlə müzakirə edin</li></ul><div style="border:2px dashed #ef594d;padding:18px;border-radius:12px;text-align:center;margin:22px 0"><strong>QR KOD BU SƏHİFƏ DƏRC EDİLDİKDƏN SONRA AKTİV OLACAQ</strong><p class="muted">Bu faylın özündə hələ ictimai internet ünvanı yoxdur. Ona görə işlək QR kod göstərilmir.</p></div><p style="color:#092a68;font-weight:700">Skan edin və sağlamlıq gündəliyinizə başlayın.</p><p class="muted">Bu alət tibbi məsləhəti əvəz etmir. Həkiminizin təlimatlarına əməl edin.</p></div>
+<div class="row no-print"><button class="btn" onclick="window.print()">Kartı çap et / PDF saxla</button><button class="btn secondary" id="sharebtn">Linki paylaş</button></div><p class="muted no-print">Çap zamanı “PDF kimi saxla” seçərək rəqəmsal nüsxə də yarada bilərsiniz.</p>
+</section>
+</main>
+<footer>İlkin prototip • Tibbi qərar və doza tövsiyəsi vermir • Fövqəladə hal üçün nəzərdə tutulmayıb</footer>
+</div><div id="toast" role="status"></div>
+<script>
+const $=id=>document.getElementById(id);
+const keys={meds:'sg_meds_v1',bp:'sg_bp_v1',gl:'sg_gl_v1',journal:'sg_journal_v1'};
+const read=k=>{try{return JSON.parse(localStorage.getItem(k)||'[]')}catch{return []}};
+const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=s=>{if(!s)return '';let d=new Date(s);return isNaN(d)?esc(s):d.toLocaleString('az-AZ')};
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2600)}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));}));
+function render(){let m=read(keys.meds),b=read(keys.bp),g=read(keys.gl),j=read(keys.journal);$('medcount').textContent=m.length;$('bpcount').textContent=b.length;$('glcount').textContent=g.length;
+$('medlist').innerHTML=m.length?'<h3>Əlavə edilmiş xatırlatmalar</h3>'+m.map((x,i)=>`<div class="entry"><strong>${esc(x.name)} · ${esc(x.time)}</strong><div>${esc(x.instructions)}</div><div class="row"><button class="btn secondary" onclick="medTaken(${i})">Qəbul etdim</button><button class="btn danger" onclick="delItem('meds',${i})">Sil</button></div></div>`).join(''):'<p class="muted">Hələ xatırlatma əlavə edilməyib.</p>';
+$('bplist').innerHTML=b.length?'<h3>Son ölçmələr</h3>'+b.slice().reverse().map((x,i)=>`<div class="entry"><strong>${esc(x.sys)}/${esc(x.dia)} mmHg ${x.pulse?'· nəbz '+esc(x.pulse):''}</strong><div>${fmt(x.time)} ${x.note?'· '+esc(x.note):''}</div><button class="btn danger" onclick="delItem('bp',${b.length-1-i})">Sil</button></div>`).join(''):'<p class="muted">Ölçmə daxil edilməyib.</p>';
+$('gllist').innerHTML=g.length?'<h3>Son ölçmələr</h3>'+g.slice().reverse().map((x,i)=>`<div class="entry"><strong>${esc(x.value)} ${esc(x.unit)}</strong><div>${fmt(x.time)} · ${esc(x.context)}</div><button class="btn danger" onclick="delItem('gl',${g.length-1-i})">Sil</button></div>`).join(''):'<p class="muted">Ölçmə daxil edilməyib.</p>';
+$('jlist').innerHTML=j.length?'<h3>Gündəlik qeydləri</h3>'+j.slice().reverse().map((x,i)=>`<div class="entry"><strong>${esc(x.date)}</strong><div>${esc(x.text)}</div><button class="btn danger" onclick="delItem('journal',${j.length-1-i})">Sil</button></div>`).join(''):'<p class="muted">Hələ gündəlik qeydi yoxdur.</p>';
+}
+window.delItem=(type,i)=>{let k=keys[type],a=read(k);a.splice(i,1);save(k,a);render()};
+window.medTaken=i=>{let a=read(keys.meds);a[i].lastMarked=new Date().toISOString();save(keys.meds,a);toast('Qeyd saxlanıldı. Bu, tibbi qəbulun təsdiqi deyil.');};
+$('medform').addEventListener('submit',e=>{e.preventDefault();let a=read(keys.meds);a.push({name:$('medname').value.trim(),instructions:$('medinstructions').value.trim(),time:$('medtime').value});save(keys.meds,a);e.target.reset();render();toast('Xatırlatma bu cihazda saxlanıldı.')});
+$('bpform').addEventListener('submit',e=>{e.preventDefault();let a=read(keys.bp);a.push({sys:$('sys').value,dia:$('dia').value,pulse:$('pulse').value,time:$('bptime').value,note:$('bpnote').value});save(keys.bp,a);e.target.reset();render();toast('Ölçmə bu cihazda saxlanıldı.')});
+$('glform').addEventListener('submit',e=>{e.preventDefault();let a=read(keys.gl);a.push({value:$('glvalue').value,unit:$('glunit').value,time:$('gltime').value,context:$('glcontext').value});save(keys.gl,a);e.target.reset();render();toast('Ölçmə bu cihazda saxlanıldı.')});
+$('journalform').addEventListener('submit',e=>{e.preventDefault();let a=read(keys.journal);a.push({date:$('jdate').value,text:$('jtext').value.trim()});save(keys.journal,a);e.target.reset();render();toast('Qeyd bu cihazda saxlanıldı.')});
+$('sharebtn').addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:document.title,text:'Sağlamlıq gündəliyi',url:location.href})}catch(e){}}else if(navigator.clipboard){try{await navigator.clipboard.writeText(location.href);toast('Link kopyalandı. Qeyd: bu fayl hələ dərc edilməyib.')}catch(e){toast('Linki ünvan sətrindən kopyalayın.')}}else toast('Linki ünvan sətrindən kopyalayın.')});
+const now=new Date();const local=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16);['bptime','gltime'].forEach(id=>$(id).value=local);$('jdate').value=local.slice(0,10);render();
+</script>
+</body></html>
